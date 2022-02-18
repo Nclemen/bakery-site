@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
+use function PHPUnit\Framework\isNull;
 
 
 class OpeningHours extends Model
@@ -56,42 +56,14 @@ class OpeningHours extends Model
     static function checkIfOpen()
     {
         // the current time
-        $timeNow = Carbon::now('Europe/London')->toTimeString();
-
-
-
+        $timeNow = date("Y-m-d H:i:s");
 
         // gets the first record with a start time before and an end time after the current time
         $timeResult = OpeningHours::
         where('start_time', '<', $timeNow)->
-        where('end_time', '>', $timeNow)->get();
+        where('end_time', '>', $timeNow )->get();
 
-//        $timeResultq1 = DB::table('opening_hours')
-//            ->where('start_time', '<', '16:30:00')
-//            ->where('end_time', '>', '16:30:00')
-//            ->get();
-//
-//        $timeResultq2 = DB::table('opening_hours')
-////            ->where('start_time', '<', $timeNow)
-//            ->where('end_time', '>', $timeNow)
-//            ->get();
-//
-//        $timeResultq3 = DB::table('opening_hours')
-//            ->where('start_time', '<', $timeNow)
-////            ->where('end_time', '>', $timeNow)
-//            ->get();
-
-        dd($timeNow);
-
-//        dd([
-//            $timeResultq1,
-//            $timeResultq2,
-//            $timeResultq3,
-//            $timeNow
-//        ]);
-
-        //checks to see if the any records were found
-        if (is_null($timeResult)) {
+        if ($timeResult->isEmpty()) {
             return false;
         } else {
             return true;
@@ -163,15 +135,35 @@ class OpeningHours extends Model
      * @return mixed
      */
     static function getNextMomentOpen(){
+
+
         // the current time
-        $timeNow = Carbon::now()->toTimeString();
+        $timeNow = date("Y-m-d H:i:s");
 
         // gets the first record with a start time after the current time
         $nextMoment = OpeningHours::where([
             ['start_time', '>', $timeNow],
-            ])->orderBy('name', 'desc')->first();
+            ])->orderBy('start_time', 'asc')->first();
 
-        return $nextMoment;
+
+        $days = OpeningHours::datediffInDays($timeNow, $nextMoment->start_time);
+
+
+        if ($days === '0' ) {
+            $answer = 'at ' . $nextMoment->start_time . '.';
+        } elseif ($days <= '6' ){
+            $answer = 'in ' . $days . ' days.' ;
+        } else {
+            $wks = date( 'W', strtotime( $nextMoment->start_time ) ) - date( 'W', strtotime( $timeNow) );;
+            $answer = 'in ' . floor($wks) .' weeks.';
+        }
+
+        if (OpeningHours::checkIfOpen()){
+            return 'the store is open right now';   
+        } else {
+            return 'the store is closed right now the next moment the store will be open again is ' . $answer;
+        }
+
     }
 
     /**
@@ -190,7 +182,7 @@ class OpeningHours extends Model
           'saturday' => 7
         ];
 
-        $hours = OpeningHours::where(DB::raw("DAYOFWEEK(created_at)"), $day_of_week[$weekday]->orderBy('start_time')->get());
+        $hours = OpeningHours::where(DB::raw("DAYOFWEEK(start_time)"), $day_of_week[$weekday]->orderBy('start_time')->get());
 
         return $hours;
     }

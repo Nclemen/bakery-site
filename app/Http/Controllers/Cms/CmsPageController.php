@@ -29,14 +29,6 @@ class CmsPageController extends Controller
      * @return \Inertia\Response
      */
     public function hoursManagement(){
-//        $openinghour = OpeningHours::firstOrCreate([
-//            'open' => 1,
-//            'start_time' => '16:00',
-//            'end_time' => '18:00',
-//            'repeated_by' => 'week',
-//            'repeat_increment' => null
-//        ]);
-
-        return Inertia::render('cms/Hours-management');
+        return Inertia::render('cms/HoursManagement/Hours-management');
     }
 }

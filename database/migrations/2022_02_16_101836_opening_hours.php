@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('opening_hours', function (Blueprint $table) {
             $table->id();
             $table->boolean('open');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
             $table->enum('repeated_by',['never','hour','day','week','month','year']);
             $table->integer('repeat_increment')->nullable();
             $table->timestamps();
