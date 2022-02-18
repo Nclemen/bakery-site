@@ -29,6 +29,8 @@ class CmsPageController extends Controller
      * @return \Inertia\Response
      */
     public function hoursManagement(){
-        return Inertia::render('cms/HoursManagement/Hours-management');
+        return Inertia::render('cms/HoursManagement/Hours-management',[
+            'event' => OpeningHours::whereMonth('start_time', Carbon::now()->month),
+        ]);
     }
 }

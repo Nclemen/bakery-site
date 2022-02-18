@@ -7,17 +7,20 @@ import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import Modal from "@/Components/Modal";
 import BreezeCheckbox from "@/Components/Checkbox";
+import fullcalendar from "@/Components/Fullcalendar";
 
 
 
-const form = useForm({
-    open: '1',
-    start_time: '00:00',
-    end_time: '00:00',
-    repeated_by: '',
-    repeat_increment: '',
-    terms: false,
-});
+</script>
+
+// const form = useForm({
+//     // open: '1',
+//     start_time: '00:00',
+//     end_time: '00:00',
+//     repeated_by: '',
+//     repeat_increment: '',
+//     terms: false,
+// });
 
 
 
@@ -27,23 +30,17 @@ const form = useForm({
 //     });
 // };
 
-form.post(route('opening-hours.store'), {
-    preserveScroll: false,
-    onSuccess: () => form.reset('open', 'start_time', 'end_time', 'repeated_by', 'repeat_increment', 'submit'),
-})
-</script>
-
-<script>
-
-export default {
-    data() {
-        return {
-            open: false
-        }
-    }
-}
-
-</script>
+// form.post(route('opening-hours.store'), {
+//     preserveScroll: false,
+//     onSuccess: () => form.reset('open', 'start_time', 'end_time', 'repeated_by', 'repeat_increment', 'submit'),
+// })
+//export default {
+//    data() {
+//        return {
+//            open: false
+//        }
+//    }
+//}
 
 <template>
     <BreezeAuthenticatedLayout>
@@ -55,7 +52,6 @@ export default {
             </h2>
         </template>
 
-<!--        <modal></modal>-->
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -64,11 +60,14 @@ export default {
                         {{ $page.props.store.nextOpening }}
                     </div>
                 </div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 bg-white border-b border-gray-200">
+                        <fullcalendar v-model="{{ $page.props.event }}"></fullcalendar>
+                    </div>
+                </div>
                 <div>
                     <div class="p-6 bg-white border-b border-gray-200">
-
                         <breeze-button @click="open = true">new hours</breeze-button>
-
 
                         <div v-if="open" id="authentication-modal" aria-hidden="true" class="modal overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
                             <div class="bg-white relative px-4 w-full max-w-md h-full md:h-auto">
