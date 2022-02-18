@@ -159,7 +159,7 @@ class OpeningHours extends Model
         }
 
         if (OpeningHours::checkIfOpen()){
-            return 'the store is open right now';   
+            return 'the store is open right now';
         } else {
             return 'the store is closed right now the next moment the store will be open again is ' . $answer;
         }
