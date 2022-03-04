@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Cms\CmsPageController;
+use App\Http\Controllers\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +17,7 @@ use App\Http\Controllers\Cms\CmsPageController;
 */
 
 Route::domain('bakery-site.test')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Welcome', [
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-    });
+    Route::get('/', [PagesController::class, 'index'])->name('index.page');
 });
 
 
@@ -34,9 +29,9 @@ Route::middleware(['auth', 'verified'])->domain('cms.bakery-site.test')->group(f
         return Inertia::render('Dashboard',[]);
     })->name('dashboard');
 
-    Route::get('/', [CmsPageController::class, 'index'])->name('cms.index');
+    Route::get('/', [CmsPageController::class, 'hoursManagement'])->name('cms.index');
 
-    Route::get('/hours-management',[CmsPageController::class, 'hoursManagement'])->name('hoursManagement');
+    Route::get('/add-hours', [CmsPageController::class, 'addHours'])->name('add-hours');
 
 });
 

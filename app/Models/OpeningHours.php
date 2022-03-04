@@ -138,19 +138,22 @@ class OpeningHours extends Model
 
 
         // the current time
-        $timeNow = date("Y-m-d H:i:s");
+        $timeNow =  date("Y-m-d H:i:s");
 
         // gets the first record with a start time after the current time
         $nextMoment = OpeningHours::where([
             ['start_time', '>', $timeNow],
-            ])->orderBy('start_time', 'asc')->first();
+            ['end_time', '<', $timeNow],
+            ])->get();
 
+        if ($nextMoment->empty()) {
+            return 'next open moment still needs to be determined';
+        }
 
         $days = OpeningHours::datediffInDays($timeNow, $nextMoment->start_time);
 
-
         if ($days === '0' ) {
-            $answer = 'at ' . $nextMoment->start_time . '.';
+            $answer = 'at ' . Carbon::createFromFormat('Y-m-d H:i:s', $nextMoment->start_time)->format('H:i') . '.';
         } elseif ($days <= '6' ){
             $answer = 'in ' . $days . ' days.' ;
         } else {
@@ -163,15 +166,13 @@ class OpeningHours extends Model
         } else {
             return 'the store is closed right now the next moment the store will be open again is ' . $answer;
         }
-
     }
 
     /**
      * @param $weekday string the weekday for which you want the hours for
      * @return mixed
      */
-    static function getHoursForWeekDay($weekday = 'wednesday'){
-
+    static function getHoursForWeekDay($weekday){
         $day_of_week = [
           'sunday' => 1,
           'monday' => 2,
@@ -182,8 +183,36 @@ class OpeningHours extends Model
           'saturday' => 7
         ];
 
-        $hours = OpeningHours::where(DB::raw("DAYOFWEEK(start_time)"), $day_of_week[$weekday]->orderBy('start_time')->get());
+        $hours = OpeningHours::where(DB::raw("DAYOFWEEK(start_time)"), $day_of_week[$weekday])->get(['start_time','end_time']);
 
         return $hours;
     }
+
+    /**
+     * get the hours for this week
+     *
+     * @return array
+     */
+    static function getHoursForWeek() {
+
+//        dd(OpeningHours::getHoursForWeekDay('wednesday'));
+
+        $wkhrs = [
+            'monday' => DateTime::createFromFormat('H:i:s', OpeningHours::getHoursForWeekDay('monday')),
+            'tuesday'=> OpeningHours::getHoursForWeekDay('tuesday'),
+            'wednesday' => OpeningHours::getHoursForWeekDay('wednesday'),
+            'thursday' => OpeningHours::getHoursForWeekDay('thursday'),
+            'friday' => OpeningHours::getHoursForWeekDay('friday'),
+            'saturday' => OpeningHours::getHoursForWeekDay('saturday'),
+            'sunday' => OpeningHours::getHoursForWeekDay('sunday'),
+        ];
+
+        return $wkhrs;
+    }
+
+    public function getRecurringHours()
+    {
+        $hours = OpeningHours::where('repeated_increment', '>', '1')->where('repeated_by', )->get();
+    }
+
 }

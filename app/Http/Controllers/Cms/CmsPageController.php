@@ -33,4 +33,13 @@ class CmsPageController extends Controller
             'event' => OpeningHours::whereMonth('start_time', Carbon::now()->month),
         ]);
     }
+
+    /**
+     * show add hours page
+     *
+     * @return \Inertia\Response
+     */
+    public function addHours(){
+        return Inertia::render('cms/HoursManagement/Add-hours');
+    }
 }
