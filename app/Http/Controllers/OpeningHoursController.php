@@ -38,7 +38,7 @@ class OpeningHoursController extends Controller
 
         //return Inertia redirect back to page
         OpeningHours::create($validatedRequest);
-        return redirect(route('hoursManagement'));
+        return redirect(route('cms.index'));
     }
 
     /**

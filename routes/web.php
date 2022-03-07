@@ -16,18 +16,13 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-Route::domain('bakery-site.test')->group(function () {
-    Route::get('/', [PagesController::class, 'index'])->name('index.page');
-});
+Route::get('/', [PagesController::class, 'index'])->name('index.page');
 
+Route::middleware(['auth', 'verified'])->prefix('hours-management')->group(function () {
 
-
-
-Route::middleware(['auth', 'verified'])->domain('cms.bakery-site.test')->group(function () {
-
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard',[]);
-    })->name('dashboard');
+//    Route::get('/dashboard', function () {
+//        return Inertia::render('Dashboard',[]);
+//    })->name('dashboard');
 
     Route::get('/', [CmsPageController::class, 'hoursManagement'])->name('cms.index');
 
