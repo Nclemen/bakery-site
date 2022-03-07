@@ -81,7 +81,7 @@ class OpeningHours extends Model
 ////            ->where('end_time', '>', $timeNow)
 //            ->get();
 
-        dd($timeNow);
+//        dd($timeNow);
 
 //        dd([
 //            $timeResultq1,
