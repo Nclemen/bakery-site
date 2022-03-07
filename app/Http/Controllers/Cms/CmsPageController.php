@@ -37,6 +37,8 @@ class CmsPageController extends Controller
 //            'repeat_increment' => null
 //        ]);
 
+        dd('i am the controller');
+
         return Inertia::render('cms/Hours-management');
     }
 }
