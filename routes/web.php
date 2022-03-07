@@ -17,7 +17,7 @@ use App\Http\Controllers\Cms\CmsPageController;
 */
 
 Route::get('/', function () {
-    return 'hi';
+    dd('hi');
 });
 
 //Route::domain('bakery-site.test')->group(function () {
