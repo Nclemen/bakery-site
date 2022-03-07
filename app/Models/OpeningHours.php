@@ -183,7 +183,7 @@ class OpeningHours extends Model
           'saturday' => 7
         ];
 
-        $hours = OpeningHours::where(DB::raw("DAYOFWEEK(start_time)"), $day_of_week[$weekday])->get();
+        $hours = OpeningHours::where(DB::raw("EXTRACT(DOW FROM TIMESTAMP(start_time)"), $day_of_week[$weekday])->get();
 
         return $hours;
     }
