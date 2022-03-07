@@ -16,6 +16,10 @@ use App\Http\Controllers\Cms\CmsPageController;
 |
 */
 
+Route::get('/', function () {
+    return 'hi';
+});
+
 Route::domain('bakery-site.test')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Welcome', [
