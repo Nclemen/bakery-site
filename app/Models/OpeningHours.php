@@ -198,7 +198,7 @@ class OpeningHours extends Model
 //        dd(OpeningHours::getHoursForWeekDay('wednesday'));
 
         $wkhrs = [
-            'monday' => DateTime::createFromFormat('H:i:s', OpeningHours::getHoursForWeekDay('monday')),
+            'monday' => OpeningHours::getHoursForWeekDay('monday'),
             'tuesday'=> OpeningHours::getHoursForWeekDay('tuesday'),
             'wednesday' => OpeningHours::getHoursForWeekDay('wednesday'),
             'thursday' => OpeningHours::getHoursForWeekDay('thursday'),
