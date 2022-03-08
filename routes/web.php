@@ -15,6 +15,9 @@ use App\Http\Controllers\PagesController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+if (env('APP_ENV') === 'production') {
+    URL::forceSchema('https');
+}
 
 Route::get('/', [PagesController::class, 'index'])->name('index.page');
 

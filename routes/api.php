@@ -16,6 +16,10 @@ use App\Http\Resources\OpeningHoursResource;
 |
 */
 
+    if (env('APP_ENV') === 'production') {
+        URL::forceSchema('https');
+    }
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
