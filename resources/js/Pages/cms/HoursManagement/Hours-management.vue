@@ -1,6 +1,7 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
+import fullcalendar from "@/Components/Fullcalendar";
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 </script>
 
@@ -26,7 +27,7 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <fullcalendar></fullcalendar>
+                        <fullcalendar ></fullcalendar>
                     </div>
                 </div>
                 <div>

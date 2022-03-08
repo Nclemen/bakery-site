@@ -32,7 +32,6 @@ class CantBeGreater implements Rule
      */
     public function passes($attribute, $value)
     {
-//        dd($attribute);
         if ($this->request[$this->firstField] > $this->request[$this->secondField]) {
             return true;
         } else {

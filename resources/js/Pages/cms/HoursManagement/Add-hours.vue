@@ -17,6 +17,7 @@ const form = useForm({
     terms: false,
 });
 
+console.log(route('opening-hours.store'))
 
 
 const submit = () => {
@@ -53,7 +54,7 @@ form.post(route('opening-hours.store'), {
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg">
 
-                                    <form @submit.prevent="form.post('api/opening-hours')">
+                                    <form @submit.prevent="form.post(route('opening-hours.store'))">
                                         <breeze-checkbox v-model="form.open"  id="open" checked="true" value="open"></breeze-checkbox>
                                         <BreezeLabel for="open">open</BreezeLabel>
                                         <BreezeLabel for="start_time">start time</BreezeLabel>

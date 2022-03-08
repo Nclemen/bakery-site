@@ -30,7 +30,7 @@ class CmsPageController extends Controller
      */
     public function hoursManagement(){
         return Inertia::render('cms/HoursManagement/Hours-management',[
-            'event' => OpeningHours::whereMonth('start_time', Carbon::now()->month),
+            'weekhours' => OpeningHours::getHoursForWeek(),
         ]);
     }
 

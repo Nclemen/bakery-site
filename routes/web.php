@@ -18,15 +18,15 @@ use App\Http\Controllers\PagesController;
 
 Route::get('/', [PagesController::class, 'index'])->name('index.page');
 
-Route::middleware(['auth', 'verified'])->prefix('hours-management')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
-//    Route::get('/dashboard', function () {
-//        return Inertia::render('Dashboard',[]);
-//    })->name('dashboard');
+    Route::get('hours-management/dashboard', function () {
+        return Inertia::render('Dashboard',[]);
+    })->name('dashboard');
 
-    Route::get('/', [CmsPageController::class, 'hoursManagement'])->name('cms.index');
+    Route::get('hours-management/', [CmsPageController::class, 'hoursManagement'])->name('cms.index');
 
-    Route::get('/add-hours', [CmsPageController::class, 'addHours'])->name('add-hours');
+    Route::get('hours-management/add-hours', [CmsPageController::class, 'addHours'])->name('add-hours');
 
 });
 

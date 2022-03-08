@@ -24,17 +24,15 @@ class OpeningHoursController extends Controller
      */
     public function store (Request $request)
     {
+
         //validate request input
         $validatedRequest = $request->validate([
             'open' => ['required', 'boolean'],
-            'start_time' => ['required', new CantBeGreater('start_time', 'end_time', $request)],
+            'start_time' => ['required'],
             'end_time' => ['required'],
             'repeated_by' => ['required'],
             'repeat_increment' => ['exclude_if:repeated_by,never'],
         ]);
-
-
-
 
         //return Inertia redirect back to page
         OpeningHours::create($validatedRequest);

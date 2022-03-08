@@ -136,17 +136,17 @@ class OpeningHours extends Model
      */
     static function getNextMomentOpen(){
 
+        if (OpeningHours::checkIfOpen()){
+            return 'the store is open right now';
+        }
 
         // the current time
         $timeNow =  date("Y-m-d H:i:s");
 
         // gets the first record with a start time after the current time
-        $nextMoment = OpeningHours::where([
-            ['start_time', '>', $timeNow],
-            ['end_time', '<', $timeNow],
-            ])->get();
+        $nextMoment = OpeningHours::where('start_time', '>', $timeNow)->first();
 
-        if ($nextMoment->empty()) {
+        if (is_null($nextMoment)) {
             return 'next open moment still needs to be determined';
         }
 
@@ -161,11 +161,12 @@ class OpeningHours extends Model
             $answer = 'in ' . floor($wks) .' weeks.';
         }
 
-        if (OpeningHours::checkIfOpen()){
-            return 'the store is open right now';
-        } else {
-            return 'the store is closed right now the next moment the store will be open again is ' . $answer;
-        }
+        $nextMoment = OpeningHours::where([
+            ['start_time', '>', $timeNow],
+            ['end_time', '<', $timeNow],
+        ])->get();
+
+        return 'the store is closed right now the next moment the store will be open again is ' . $answer;
     }
 
     /**
@@ -194,8 +195,6 @@ class OpeningHours extends Model
      * @return array
      */
     static function getHoursForWeek() {
-
-//        dd(OpeningHours::getHoursForWeekDay('wednesday'));
 
         $wkhrs = [
             'monday' => OpeningHours::getHoursForWeekDay('monday'),
