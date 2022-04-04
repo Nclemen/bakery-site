@@ -3,6 +3,8 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 import fullcalendar from "@/Components/Fullcalendar";
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+
+
 </script>
 
 
@@ -27,7 +29,22 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <fullcalendar ></fullcalendar>
+                        <table class="table-auto">
+                            <thead>
+                            <tr>
+                                <th>start time</th>
+                                <th>end time</th>
+                                <th>recurring</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="hour in hours">
+                                <td>{{ hour.start_time }}</td>
+                                <td>{{ hour.end_time }}</td>
+                                <td>{{ hour.repeated_by }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div>
