@@ -175,13 +175,13 @@ class OpeningHours extends Model
      */
     static function getHoursForWeekDay($weekday){
         $day_of_week = [
-          'sunday' => 1,
-          'monday' => 2,
-          'tuesday'=> 3,
-          'wednesday' => 4,
-          'thursday' => 5,
-          'friday' => 6,
-          'saturday' => 7
+          'sunday' => 0,
+          'monday' => 1,
+          'tuesday'=> 2,
+          'wednesday' => 3,
+          'thursday' => 4,
+          'friday' => 5,
+          'saturday' => 6
         ];
 
         $hours = OpeningHours::where(DB::raw("EXTRACT(DOW FROM(start_time))"), $day_of_week[$weekday])->get();
@@ -212,6 +212,24 @@ class OpeningHours extends Model
     public function getRecurringHours()
     {
         $hours = OpeningHours::where('repeated_increment', '>', '1')->where('repeated_by', )->get();
+    }
+
+    /**
+     * method to return hours for specific date
+     */
+    static function getHoursForDate($date){
+        $weekMap = [
+            0 => 'sunday',
+            1 => 'monday',
+            2 => 'tuesday',
+            3 => 'wednesday',
+            4 => 'thursday',
+            5 => 'friday',
+            6 => 'saturday',
+        ];
+        $day = new Carbon($date);
+        $dayOfTheWeek = $day->dayOfWeek;
+        return OpeningHours::getHoursForWeekDay($weekMap[$dayOfTheWeek]);
     }
 
 }
