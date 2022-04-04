@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\Cms\CmsPageController;
+use App\Http\Controllers\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [PagesController::class, 'index'])->name('index.page');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('hours-management/dashboard', function () {
+        return Inertia::render('Dashboard',[]);
+    })->name('dashboard');
+
+    Route::get('hours-management/', [CmsPageController::class, 'hoursManagement'])->name('cms.index');
+
+    Route::get('hours-management/add-hours', [CmsPageController::class, 'addHours'])->name('add-hours');
+
 });
+
+require __DIR__.'/auth.php';
