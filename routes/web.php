@@ -16,28 +16,29 @@ use App\Http\Controllers\Cms\CmsPageController;
 |
 */
 
-Route::domain('bakery-site.test')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Welcome', [
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-    });
-});
+// Route::domain('bakery-site.test')->group(function () {
+    // Route::get('/', function () {
+    //     return Inertia::render('Welcome', [
+    //         'laravelVersion' => Application::VERSION,
+    //         'phpVersion' => PHP_VERSION,
+    //     ]);
+    // });
+// });
 
 
 
+Route::get('/');
 
-Route::middleware(['auth', 'verified'])->domain('cms.bakery-site.test')->group(function () {
+// Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard',[]);
-    })->name('dashboard');
+//     Route::get('/dashboard', function () {
+//         return Inertia::render('Dashboard',[]);
+//     })->name('dashboard');
 
-    Route::get('/', [CmsPageController::class, 'index'])->name('cms.index');
+//     Route::get('/', [CmsPageController::class, 'index'])->name('cms.index');
 
-    Route::get('/hours-management',[CmsPageController::class, 'hoursManagement'])->name('hoursManagement');
+//     Route::get('/hours-management',[CmsPageController::class, 'hoursManagement'])->name('hoursManagement');
 
-});
+// });
 
 require __DIR__.'/auth.php';
