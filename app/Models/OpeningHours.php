@@ -146,7 +146,7 @@ class OpeningHours extends Model
         $timeNow =  date("Y-m-d H:i:s");
 
         // gets the first record with a start time after the current time
-        $nextMoment = OpeningHours::where('start_time', '>', $timeNow)->first();
+        $nextMoment = OpeningHours::where('start_time', '>', $timeNow)->where('open','=',true)->first();
 
         if (is_null($nextMoment)) {
             return 'next open moment still needs to be determined';
