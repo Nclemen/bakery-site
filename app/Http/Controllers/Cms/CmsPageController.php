@@ -30,7 +30,7 @@ class CmsPageController extends Controller
      */
     public function hoursManagement(){
         return Inertia::render('cms/HoursManagement/Hours-management',[
-            'weekhours' => OpeningHours::getHoursForWeek(),
+            'weekhours' => OpeningHours::All(),
         ]);
     }
 
