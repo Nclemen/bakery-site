@@ -9,6 +9,8 @@ import BreezeCheckbox from "@/Components/Checkbox";
 
 
 const form = useForm({
+    title: 'text',
+    description: 'text',
     open: '1',
     start_time: '00:00',
     end_time: '00:00',
@@ -17,18 +19,16 @@ const form = useForm({
     terms: false,
 });
 
-console.log(route('opening-hours.store'))
-
 
 const submit = () => {
     form.post(route('opening-hours.store'), {
-        onFinish: () => form.reset('open', 'start_time', 'end_time', 'repeated_by', 'repeat_increment', 'submit'),
+        onFinish: () => form.reset('title', 'description', 'open', 'start_time', 'end_time', 'repeated_by', 'repeat_increment', 'submit'),
     });
 };
 
 form.post(route('opening-hours.store'), {
     preserveScroll: false,
-    onSuccess: () => form.reset('open', 'start_time', 'end_time', 'repeated_by', 'repeat_increment', 'submit'),
+    onSuccess: () => form.reset('title', 'description', 'open', 'start_time', 'end_time', 'repeated_by', 'repeat_increment', 'submit'),
 })
 
 
@@ -55,8 +55,12 @@ form.post(route('opening-hours.store'), {
                                 <div class="relative bg-white rounded-lg">
 
                                     <form @submit.prevent="form.post(route('opening-hours.store'))">
-                                        <breeze-checkbox v-model="form.open"  id="open" checked="true" value="open"></breeze-checkbox>
+                                        <BreezeLabel for="title">title</BreezeLabel>
+                                        <breeze-input v-model="form.title" id="title"  type="text" required/>
+                                        <BreezeLabel for="description">description</BreezeLabel>
+                                        <breeze-input v-model="form.description" id="description"  type="text"/>
                                         <BreezeLabel for="open">open</BreezeLabel>
+                                        <breeze-checkbox v-model="form.open"  id="open" checked="true" value="open"></breeze-checkbox>
                                         <BreezeLabel for="start_time">start time</BreezeLabel>
                                         <breeze-input v-model="form.start_time" id="start_time"  type="datetime-local" required/>
                                         <BreezeLabel for="end_time">end time</BreezeLabel>

@@ -24,9 +24,10 @@ class OpeningHoursController extends Controller
      */
     public function store (Request $request)
     {
-
         //validate request input
         $validatedRequest = $request->validate([
+            'title' => ['required', 'string'],
+            'description' => ['string'],
             'open' => ['required', 'boolean'],
             'start_time' => ['required'],
             'end_time' => ['required'],
