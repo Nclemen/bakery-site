@@ -29,22 +29,40 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <table class="table-auto">
-                            <thead>
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-200">
                             <tr>
-                                <th>start time</th>
-                                <th>end time</th>
-                                <th>recurring</th>
+<!--                                <th>day of week</th>-->
+                                <th scope="col" class="px-6 py-3">title</th>
+                                <th scope="col" class="px-6 py-3">description</th>
+                                <th scope="col" class="px-6 py-3">open</th>
+                                <th scope="col" class="px-6 py-3">start time</th>
+                                <th scope="col" class="px-6 py-3">end time</th>
+                                <th scope="col" class="px-6 py-3">recurring</th>
+                                <th scope="col" class="px-6 py-3">repeat increment</th>
+<!--                                <th>created at</th>-->
+<!--                                <th>updated at</th>-->
+                                <th scope="col" class="px-6 py-3"   ></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr v-for="hour in hours">
-                                <td>{{ hour.start_time }}</td>
-                                <td>{{ hour.end_time }}</td>
-                                <td>{{ hour.repeated_by }}</td>
+                            <tbody v-for="hour in $page.props.weekhours">
+                            <tr class="bg-white border-b hover:bg-gray-100 odd:bg-white even:bg-gray-50">
+<!--                                <td></td>-->
+                                <td class="px-6 py-4">{{ hour.title }}</td>
+                                <td class="px-6 py-4">{{ hour.description }}</td>
+                                <td class="px-6 py-4">{{ hour.open }}</td>
+                                <td class="px-6 py-4">{{ hour.start_time }}</td>
+                                <td class="px-6 py-4">{{ hour.end_time }}</td>
+                                <td class="px-6 py-4">{{ hour.repeated_by }}</td>
+                                <td class="px-6 py-4">{{ hour.repeat_increment }}</td>
+<!--                                <td>{{ hour.created_at }}</td>-->
+<!--                                <td>{{ hour.updated_at }}</td>-->
+                                <th><a href="#">edit</a></th>
                             </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
                 <div>

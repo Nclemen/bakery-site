@@ -37,7 +37,7 @@ import GuestLayout from '@/Layouts/Guest.vue';
                         </ul>
                     </div>
                 </div>
-                <a href="/hours-management ">manage hours</a>
+                <a :href="route('cms.index')">manage hours</a>
 
             </div>
         </div>
