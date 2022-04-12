@@ -19,6 +19,8 @@ class OpeningHours extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'title',
+        'description',
         'open',
         'start_time',
         'end_time',

@@ -15,7 +15,6 @@ class PagesController extends Controller
      * @return \Inertia\Response
      */
     public function index() {
-        OpeningHours::getHoursForWeek();
         return Inertia::render('Welcome',[
             'weekhours' => OpeningHours::getHoursForWeek(),
         ]);
