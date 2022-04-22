@@ -11,9 +11,9 @@ import BreezeCheckbox from "@/Components/Checkbox";
 const form = useForm({
     title: 'text',
     description: 'text',
-    open: '1',
-    start_time: '00:00',
-    end_time: '00:00',
+    open: true,
+    start_time: '09-12-1998 00:00',
+    end_time: '09-12-1998 00:00',
     repeated_by: '',
     repeat_increment: '',
     terms: false,
@@ -38,8 +38,8 @@ form.post(route('opening-hours.store'), {
 
 <template>
     <BreezeAuthenticatedLayout>
-        <Head title="Hours Management" />
-        <BreezeValidationErrors class="mb-4" />
+        <Head title="Hours Management"/>
+        <BreezeValidationErrors class="mb-4"/>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Add new hours
