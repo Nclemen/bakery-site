@@ -2,11 +2,12 @@
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import GuestLayout from '@/Layouts/Guest.vue';
+import BaseLayout from '@/Layouts/Base.vue';
 import DateCheckerComponent from "@/Components/DateCheckerComponent";
 </script>
 
 <template>
-    <GuestLayout>
+    <BaseLayout>
         <Head title="Hours Management" />
 
         <div class="py-12">
@@ -49,5 +50,5 @@ import DateCheckerComponent from "@/Components/DateCheckerComponent";
 
             </div>
         </div>
-    </GuestLayout>
+    </BaseLayout>
 </template>

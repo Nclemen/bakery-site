@@ -1,5 +1,6 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
+import BaseLayout from '@/Layouts/Base.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 import fullcalendar from "@/Components/Fullcalendar";
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
@@ -9,7 +10,7 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
 
 <template>
-    <BreezeAuthenticatedLayout>
+    <BaseLayout>
         <Head title="Hours Management" />
         <BreezeValidationErrors class="mb-4" />
         <template #header>
@@ -74,5 +75,5 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
         </div>
-    </BreezeAuthenticatedLayout>
+    </BaseLayout>
 </template>
