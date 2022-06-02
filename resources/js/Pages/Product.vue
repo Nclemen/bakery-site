@@ -1,10 +1,28 @@
 <script setup>
 import BaseLayout from '@/Layouts/Base.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
+import BreezeButton from '@/Components/Button.vue';
+
+import {useForm} from "@inertiajs/inertia-vue3";
+import product from "@/Pages/Product";
+
+const form = useForm({
+    amount: '',
+    id: '',
+});
 
 
+const submit = () => {
+    form.post(route('shop.addToCart'), {
+        onFinish: () => form.reset('amount', 'id'),
+    });
+};
+
+form.post(route('shop.addToCart'), {
+    preserveScroll: false,
+    onSuccess: () => form.reset('amount', 'id'),
+})
 </script>
-
 
 <template>
     <BaseLayout>
@@ -19,10 +37,12 @@ import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
                                 </div>
                                 <div class="col-span-1">
                                     <h4>Price: {{ $page.props.product.price }}</h4>
-                                    <form :action="route('shop.addToCart')" @submit.prevent="submit">
-                                        <input type="number" id="tentacles" name="amount" value="1" min="1" max="15" >
-                                        <input type="hidden" name="id" id="id" :value= $page.props.product.id >
-                                        <button type="submit">add</button>
+                                    <form @submit.prevent="form.post(route('shop.addToCart'))">
+                                        <input type="number" v-model="form.amount" id="amount" name="amount" min="1" max="15" >
+                                        <input type="hidden" v-model="form.id" name="id" id="id" >
+                                        <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                            add
+                                        </BreezeButton>
                                     </form>
                                 </div>
                         </div>
@@ -31,23 +51,3 @@ import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
         </div>
     </BaseLayout>
 </template>
-
-<script >
-import { reactive } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-
-export default {
-    setup () {
-        const form = reactive({
-            id: null,
-            amount: null,
-        })
-
-        function submit() {
-            Inertia.post('/shop/cart', form)
-        }
-
-        return { form, submit }
-    },
-}
-</script>
