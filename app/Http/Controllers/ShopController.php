@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use App\Models\Product;
-use App\Classes\Cart;
+use App\Classes\Cart as cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -54,10 +54,10 @@ class ShopController extends Controller
         $cart = $request->session()->pull('cart');
         // check if the cart retrieved from session was success if not create new cart instance
 
-        dd($request);
+        // dd($request);
 
         if (!$cart) {
-            $cart = Cart();
+            $cart = new cart();
         }
 
 
@@ -82,8 +82,6 @@ class ShopController extends Controller
                 $cart = $request->session()->pull('cart');
               } else {
                  $cart = new Cart();
-                 $cart->addToCart(Product::find(rand(1, 20)),rand(1, 8));
-                 $cart->addToCart(Product::find(rand(1, 20)),rand(1, 8));
               }
 
         // return cart data to view
