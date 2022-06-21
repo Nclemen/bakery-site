@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Classes\Cart;
 
 
 class ShopController extends Controller
@@ -56,9 +57,14 @@ class ShopController extends Controller
         //    get cart from session
         $cart = $request->session()->pull('cart');
         // check if the cart retrieved from session was success if not create new cart instance
+
+        dd($request);
+
         if (!$cart) {
             $cart = Cart();
         }
+
+
         // add product to cart
         $cart::addProduct($request->input('name'),$amount);
         // save cart to session
@@ -73,11 +79,15 @@ class ShopController extends Controller
               if ($request->session()->pull('cart')) {
                 $cart = $request->session()->pull('cart');
               } else {
-                 $cart = Cart();
+                 $cart = new Cart();
+                 $cart->addToCart(Product::find(rand(1, 20)),rand(1, 8));
+                 $cart->addToCart(Product::find(rand(1, 20)),rand(1, 8));
               }
 
         // return cart data to view
 
+//         dd($cart);
+//
         return Inertia::render('Cart',[
             'cart' => $cart,
         ]);

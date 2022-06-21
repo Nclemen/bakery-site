@@ -1,15 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Classes;
 
-use App/Models/Product;
+use App\Models\Product;
 
 class Cart
 {
     public $items = [];
 
-    __construct($cart){
-        $this = $cart;
+    function __construct($cart = null){
+        if (!is_null($cart)) {
+            $this->items = $cart->items;
+        }
     }
 
     public function getCart(){
@@ -18,11 +20,11 @@ class Cart
 
     public function addToCart(Product $product,$amount){
         // if an item is already in the cart update the amount
-        if($this->items[$product->name]){
-            $this->update
+        if(array_search($product, $this->items)){
+            $this->updateItemAmount($product, $amount);
         }
 
-        $this->items[$product->name] = ['Amount' => $amount];
+        $this->items[] = ['Product' => $product,'Amount' => $amount, 'Total' => ($product['price']*$amount)];
         return 'item added to cart';
     }
 
