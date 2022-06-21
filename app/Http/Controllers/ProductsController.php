@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OpeningHours;
 use Illuminate\Http\Request;
-use App\Rules\CantBeGreater;
+use App\Models\Product;
 
-class OpeningHoursController extends Controller
+
+class ProductsController extends Controller
 {
-
-    /**
+        /**
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
         // return all hours
-        return OpeningHours::all();
+        return Product::all();
     }
 
     /**
@@ -26,18 +25,16 @@ class OpeningHoursController extends Controller
     {
         //validate request input
         $validatedRequest = $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['string'],
-            'open' => ['required', 'boolean'],
-            'start_time' => ['required'],
-            'end_time' => ['required'],
-            'repeated_by' => ['required'],
-            'repeat_increment' => ['exclude_if:repeated_by,never'],
+            'name' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'price' => ['required', 'integer'],
+            'min' => ['required'],
+            'max' => ['required'],
         ]);
 
         //return Inertia redirect back to page
-        OpeningHours::create($validatedRequest);
-        return redirect(route('cms.index'));
+        Product::create($validatedRequest);
+        return redirect(route('cms.products'));
     }
 
     /**
@@ -47,7 +44,7 @@ class OpeningHoursController extends Controller
     public function show ($id)
     {
         //find opening hour with specific id
-        return OpeningHours::find($id);
+        return Product::find($id);
     }
 
     /**
@@ -58,7 +55,7 @@ class OpeningHoursController extends Controller
     public function update(Request $request,$id)
     {
         //update specific hour entry with request data
-        return OpeningHours::find($id)->update($request->all());
+        return Product::find($id)->update($request->all());
     }
 
     /**
@@ -68,6 +65,6 @@ class OpeningHoursController extends Controller
     public function destroy($id)
     {
         // delete specific hour entry
-        return OpeningHours::destroy($id);
+        return Product::destroy($id);
     }
 }

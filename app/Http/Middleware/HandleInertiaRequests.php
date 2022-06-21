@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'store' => [
                 'isOpen' => OpeningHours::checkIfOpen(),
+                'nextOpening' => OpeningHours::getNextMomentOpen(),
             ],
         ]);
     }

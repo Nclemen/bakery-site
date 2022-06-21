@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 </script>
 
 <template>
+
     <BreezeAuthenticatedLayout>
         <Head title="Dashboard" />
         <template #header>

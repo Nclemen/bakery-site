@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Cms\CmsPageController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,27 +17,31 @@ use App\Http\Controllers\Cms\CmsPageController;
 |
 */
 
-Route::domain('bakery-site.test')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Welcome', [
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-    });
-});
+Route::get('/', [PagesController::class, 'index'])->name('index.page');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop/cart', [ShopController::class, 'cart'])->name('shop.cart');
+Route::post('/shop/cart', [ShopController::class, 'addToCart'])->name('shop.addToCart'); // receives post from product page to add to the cart
+Route::get('/shop/order-check', [ShopController::class, 'orderCheck'])->name('shop.orderCheck');
+Route::post('/shop/order', [ShopController::class, 'orderInsight'])->name('shop.orderInsight'); // receives post from order-check with order id and email address and redirects user to page with status information about the users order
+Route::get('/shop/{product}', [ShopController::class, 'productPage'])->name('shop.product');
 
+Route::middleware(['auth', 'verified'])->group(function () {
 
-
-
-Route::middleware(['auth', 'verified'])->domain('cms.bakery-site.test')->group(function () {
-
-    Route::get('/dashboard', function () {
+    Route::get('cms/', function () {
         return Inertia::render('Dashboard',[]);
     })->name('dashboard');
 
-    Route::get('/', [CmsPageController::class, 'index'])->name('cms.index');
+    // overview of hours
+    Route::get('hours-management/', [CmsPageController::class, 'hoursManagement'])->name('cms.index');
 
-    Route::get('/hours-management',[CmsPageController::class, 'hoursManagement'])->name('hoursManagement');
+    // overview of products
+    Route::get('products-management/', [CmsPageController::class, 'productsManagement'])->name('cms.products');
+
+    // add hours form
+    Route::get('hours-management/add-hours', [CmsPageController::class, 'addHours'])->name('add-hours');
+
+    // add product form
+    Route::get('products-management/add-product', [CmsPageController::class, 'addProducts'])->name('add-products');
 
 });
 
