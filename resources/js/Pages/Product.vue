@@ -1,7 +1,9 @@
 <script setup>
 import BaseLayout from '@/Layouts/Base.vue';
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
+import BreezeInput from '@/Components/Input.vue';
+import BreezeLabel from '@/Components/Label.vue';
 import BreezeButton from '@/Components/Button.vue';
+import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
 
 import {useForm} from "@inertiajs/inertia-vue3";
 import product from "@/Pages/Product";

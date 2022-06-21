@@ -84,7 +84,7 @@ class OpeningHours extends Model
         $date2 = Carbon::now();
         $steps = $date->recurrence_increment;
 
-        if($date1 > $date2) return datediffInWeeks($date2, $date1);
+        if($date1 > $date2) return $this->datediffInWeeks($date2, $date1);
         $first = DateTime::createFromFormat('m/d/Y', $date1);
         $second = DateTime::createFromFormat('m/d/Y', $date2);
         $weekAmount = floor($first->diff($second)->days/7);

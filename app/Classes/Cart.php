@@ -21,7 +21,7 @@ class Cart
     public function addToCart(Product $product,$amount){
         // if an item is already in the cart update the amount
         if(array_search($product, $this->items)){
-            $this->updateItemAmount($product, $amount);
+            $this->updateItemAmount($product, $amount)
         }
 
         $this->items[] = ['Product' => $product,'Amount' => $amount, 'Total' => ($product['price']*$amount)];

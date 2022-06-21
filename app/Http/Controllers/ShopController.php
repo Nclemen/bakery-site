@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use App\Models\Product;
+use App\Classes\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Classes\Cart;
 
 
 class ShopController extends Controller
@@ -24,8 +24,6 @@ class ShopController extends Controller
 
         $products = Product::all();
 
-//         dd($products);
-
         return Inertia::render('Shop', [
             'products' => $products,
         ]);
@@ -38,8 +36,6 @@ class ShopController extends Controller
      *
      */
     public function productPage (Product $product) {
-//         $product = Product::find($id);
-//         dd($product);
 
         // return product data to view
                 return Inertia::render('Product',['product' => $product]);
@@ -74,6 +70,12 @@ class ShopController extends Controller
         //
     }
 
+
+    /**
+     * method to show the cart
+     * 
+     * 
+     */
     public function cart (Request $request) {
         //    check if a card was retrieved from session if not create new cart instance
               if ($request->session()->pull('cart')) {

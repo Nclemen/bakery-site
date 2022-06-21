@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use App\Models\OpeningHours;
+use App\Models\Product;
 use Carbon\Carbon;
 
 class CmsPageController extends Controller
@@ -26,11 +27,24 @@ class CmsPageController extends Controller
     }
 
     /**
+     * shows all hours
+     * 
      * @return \Inertia\Response
      */
     public function hoursManagement(){
         return Inertia::render('cms/HoursManagement/Hours-management',[
             'weekhours' => OpeningHours::All(),
+        ]);
+    }
+
+    /**
+     * shows all products
+     * 
+     * @return \Inertia\Response
+     */
+    public function productsManagement(){
+        return Inertia::render('cms/ProductsManagement/Products-management',[
+            'products' => Product::All(),
         ]);
     }
 
@@ -41,5 +55,14 @@ class CmsPageController extends Controller
      */
     public function addHours(){
         return Inertia::render('cms/HoursManagement/Add-hours');
+    }
+
+    /**
+     * show add product page
+     *
+     * @return \Inertia\Response
+     */
+    public function addProducts(){
+        return Inertia::render('cms/ProductsManagement/Add-products');
     }
 }
